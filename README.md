@@ -1,4 +1,4 @@
-# Docker Minecraft modded server runner
+# MCMSR - Minecraft Modded Server Runner
 
 ### Server commands
 1. Attach to server console
