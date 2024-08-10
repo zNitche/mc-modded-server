@@ -1,0 +1,33 @@
+version: "3"
+services:
+  # cron:
+  #   container_name: world_backup
+  #   build:
+  #     context: .
+  #     dockerfile: cron/Dockerfile
+  #   volumes:
+  #     - ${LOGS_PATH}:/logs
+  #   command: cron -f
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+
+  server:
+    container_name: $SERVER_NAME
+    build:
+      dockerfile: Dockerfile
+      args:
+        - MODPACK_URL=$MODPACK_URL
+        - SERVER_START_SCRIPT=$SERVER_START_SCRIPT
+    command: /bin/sh -c "/mc_server/${SERVER_START_SCRIPT}"
+    restart: unless-stopped
+    ports:
+      - "25565:25565"
+    volumes:
+      - ${WORLD_DIR}:/mc_server/world
+      - server_data:/mc_server
+    env_file:
+      - .env
+
+volumes:
+  server_data:
