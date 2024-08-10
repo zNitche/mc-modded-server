@@ -7,14 +7,6 @@ ARG SERVER_START_SCRIPT
 RUN apt update
 RUN apt -y install zip wget nano
 
-# Scripts setup
-RUN mkdir /mcmsr
-COPY scripts /mcmsr
-WORKDIR /mcmsr
-
-RUN apt -y install python3 python3-pip
-RUN pip3 install -r requirements.txt
-
 # MC server setup
 RUN mkdir /mcmsr_server
 WORKDIR /mcmsr_server

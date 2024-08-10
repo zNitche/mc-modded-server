@@ -1,0 +1,7 @@
+[
+    {
+        "enabled_key": "WORLD_BACKUP",
+        "schedule_key": "WORLD_BACKUP_SCHEDULE",
+        "module": "backup_world.py"
+    }
+]

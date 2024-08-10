@@ -1,17 +1,15 @@
 services:
-  # cron:
-  #   container_name: world_backup
-  #   build:
-  #     context: .
-  #     dockerfile: cron/Dockerfile
-  #   volumes:
-  #     - ${LOGS_PATH}:/logs
-  #   command: cron -f
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
+  mcmsr_cron:
+    container_name: mcmsr_cron
+    build:
+      context: .
+      dockerfile: cron/Dockerfile
+    command: /bin/sh -c "/cron/run_cron.sh"
+    restart: unless-stopped
+    env_file:
+      - .env
 
-  server:
+  mcmsr_server:
     container_name: $SERVER_NAME
     stdin_open: true
     tty: true
@@ -25,10 +23,10 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - ${WORLD_DIR}:/mcmsr_server/world
-      - server_data:/mcmsr_server
+      - ${WORLD_DIR_PATH}:/mcmsr_server/world
+      - mcmsr_server_data:/mcmsr_server
     env_file:
       - .env
 
 volumes:
-  server_data:
+  mcmsr_server_data:
