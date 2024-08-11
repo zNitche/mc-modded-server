@@ -39,7 +39,7 @@ def parse_source(raw_data: list[RawCronRecord]) -> list[CronRecord]:
 
 
 def record_to_row(record: CronRecord) -> str:
-    return f"{record.schedule} python3 {MODULE_ROOT}/scripts/{record.module}"
+    return f"{record.schedule} python3 {MODULE_ROOT}/scripts/tasks/{record.module}"
 
 
 def save_crontab(records: list[CronRecord]):
