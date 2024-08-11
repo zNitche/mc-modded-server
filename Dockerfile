@@ -1,6 +1,6 @@
 FROM ubuntu:jammy
 
-ARG MODPACK_URL
+ARG SERVER_FILES_URL
 ARG SERVER_START_SCRIPT
 
 # Core setup
@@ -20,7 +20,7 @@ WORKDIR /mcmsr_server
 
 RUN apt -y install openjdk-17-jre
 
-RUN wget $MODPACK_URL -O server.zip
+RUN wget $SERVER_FILES_URL -O server.zip
 RUN unzip server.zip -d . && rm server.zip
 
 RUN echo eula=true > eula.txt

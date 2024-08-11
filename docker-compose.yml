@@ -6,6 +6,8 @@ services:
       dockerfile: cron/Dockerfile
     command: /bin/sh -c "/cron/run_cron.sh"
     restart: unless-stopped
+    volumes:
+      - ${LOGS_DIR_PATH}:/cron/logs
     env_file:
       - .env
 

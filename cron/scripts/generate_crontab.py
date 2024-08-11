@@ -1,8 +1,6 @@
 import os, json
 from dataclasses import dataclass
-
-
-MODULE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+from tasks.config import Config
 
 
 @dataclass
@@ -20,7 +18,7 @@ class CronRecord:
 
 
 def load_source() -> list[RawCronRecord]:
-    with open(os.path.join(MODULE_ROOT, "crontab_source.json"), "r") as file:
+    with open(os.path.join(Config.MODULE_PATH, "crontab_source.json"), "r") as file:
         data = json.loads(file.read())
 
     return [RawCronRecord(**record) for record in data]
@@ -39,11 +37,11 @@ def parse_source(raw_data: list[RawCronRecord]) -> list[CronRecord]:
 
 
 def record_to_row(record: CronRecord) -> str:
-    return f"{record.schedule} python3 {MODULE_ROOT}/scripts/tasks/{record.module}"
+    return f"{record.schedule} python3 {Config.TASKS_PATH}/{record.module}"
 
 
 def save_crontab(records: list[CronRecord]):
-    filename = os.path.join(MODULE_ROOT, "jobs.txt")
+    filename = os.path.join(Config.MODULE_PATH, "jobs.txt")
     entries = []
 
     for record in records:

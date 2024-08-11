@@ -1,13 +1,17 @@
-import os
+from task_base import TaskBase
 
 
-MODULE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+class BackupWorld(TaskBase):
+    def __init__(self):
+        super().__init__()
 
+    def get_name(self):
+        return "backup_world"
 
-def main():
-    with open(os.path.join(MODULE_ROOT, "world_backup.txt"), "a") as file:
-        file.write("test backup\n")
+    def _task_handler(self):
+        self._log("test")
 
 
 if __name__ == "__main__":
-    main()
+    task = BackupWorld()
+    task.run()
