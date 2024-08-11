@@ -1,13 +1,13 @@
 services:
-  cron:
+  tasks:
     container_name: mcmsr_${SERVER_NAME}_tasks
     build:
       context: .
-      dockerfile: cron/Dockerfile
-    command: /bin/sh -c "/cron/run_cron.sh"
+      dockerfile: mcmsr_tasks/Dockerfile
+    command: /bin/sh -c "/mcmsr_tasks/run_tasks.sh"
     restart: unless-stopped
     volumes:
-      - ${LOGS_DIR_PATH}:/cron/logs
+      - ${LOGS_DIR_PATH}:/mcmsr_tasks/logs
     env_file:
       - .env
 

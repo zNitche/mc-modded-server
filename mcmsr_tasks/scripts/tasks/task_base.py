@@ -10,7 +10,7 @@ class TaskBase:
     def get_name(self) -> str:
         raise NotImplemented
     
-    def _log(self, message: str, type: LogType = LogType.INFO):
+    def log(self, message: str, type: LogType = LogType.INFO):
         filename = f"{self.get_name()}_logs.log"
         mess = f"[{type.value}] - [{datetime.now().isoformat()}] - {message}"
 

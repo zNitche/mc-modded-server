@@ -9,7 +9,7 @@ class BackupWorld(TaskBase):
         return "backup_world"
 
     def _task_handler(self):
-        self._log("test")
+        self.log("test")
 
 
 if __name__ == "__main__":
