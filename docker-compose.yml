@@ -18,7 +18,7 @@ services:
     build:
       dockerfile: Dockerfile
       args:
-        - MODPACK_URL=$MODPACK_URL
+        - SERVER_FILES_URL=$SERVER_FILES_URL
         - SERVER_START_SCRIPT=$SERVER_START_SCRIPT
     command: /bin/sh -c "/mcmsr/run_server.sh"
     restart: unless-stopped
