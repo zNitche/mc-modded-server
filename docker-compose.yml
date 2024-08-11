@@ -1,6 +1,6 @@
 services:
-  mcmsr_cron:
-    container_name: mcmsr_cron
+  cron:
+    container_name: mcmsr_${SERVER_NAME}_tasks
     build:
       context: .
       dockerfile: cron/Dockerfile
@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
 
-  mcmsr_server:
+  server:
     container_name: $SERVER_NAME
     stdin_open: true
     tty: true
@@ -18,7 +18,7 @@ services:
       args:
         - MODPACK_URL=$MODPACK_URL
         - SERVER_START_SCRIPT=$SERVER_START_SCRIPT
-    command: /bin/sh -c "/mcmsr_server/${SERVER_START_SCRIPT}"
+    command: /bin/sh -c "/mcmsr/run_server.sh"
     restart: unless-stopped
     ports:
       - "25565:25565"
