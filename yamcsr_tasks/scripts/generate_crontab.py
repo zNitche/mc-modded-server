@@ -1,6 +1,6 @@
 import os, json
 from dataclasses import dataclass
-from tasks.config import Config
+from tasks.common.config import Config
 
 
 @dataclass

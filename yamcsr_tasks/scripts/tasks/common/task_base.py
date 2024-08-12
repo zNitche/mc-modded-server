@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from config import Config, LogType
+from common.config import Config, LogType
 
 
 class TaskBase:

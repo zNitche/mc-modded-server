@@ -1,4 +1,4 @@
-from task_base import TaskBase
+from common.task_base import TaskBase
 
 
 class ClearLogs(TaskBase):
@@ -9,7 +9,7 @@ class ClearLogs(TaskBase):
         return "clear_logs"
 
     def _task_handler(self):
-        self.log("starting world backup")
+        self.log("starting logs wipe")
 
 
 if __name__ == "__main__":

@@ -1,16 +1,4 @@
 services:
-  tasks:
-    container_name: ${SERVER_NAME}_tasks
-    build:
-      context: .
-      dockerfile: yamcsr_tasks/Dockerfile
-    command: /bin/sh -c "/yamcsr_tasks/run_tasks.sh"
-    restart: unless-stopped
-    volumes:
-      - ${LOGS_DIR_PATH}:/yamcsr_tasks/logs
-    env_file:
-      - .env
-
   server:
     container_name: $SERVER_NAME
     stdin_open: true
@@ -25,8 +13,21 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - ${WORLD_DIR_PATH}:/yamcsr_server/world
       - server_data:/yamcsr_server
+    env_file:
+      - .env
+
+  tasks:
+    container_name: ${SERVER_NAME}_tasks
+    build:
+      context: .
+      dockerfile: yamcsr_tasks/Dockerfile
+    command: /bin/sh -c "/yamcsr_tasks/run_tasks.sh"
+    restart: unless-stopped
+    volumes:
+      - ${TASKS_FILES_DIR_PATH}:/yamcsr_tasks/files
+      - ${LOGS_DIR_PATH}:/yamcsr_tasks/logs
+      - server_data:/yamcsr_server_data
     env_file:
       - .env
 
