@@ -13,4 +13,4 @@ class Config:
     MODULE_PATH = os.path.abspath(os.path.join(SCRIPTS_PATH, os.pardir))
 
     LOGS_PATH = os.path.join(MODULE_PATH, "logs")
-    TASKS_RUNNER_LOGS_PATH = os.path.join(LOGS_PATH, "runner.log")
+    TASKS_RUNNER_LOGS_PATH = os.path.join(LOGS_PATH, "tasks_runner.log")

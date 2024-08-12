@@ -1,13 +1,13 @@
 services:
   tasks:
-    container_name: mcmsr_${SERVER_NAME}_tasks
+    container_name: ${SERVER_NAME}_tasks
     build:
       context: .
-      dockerfile: mcmsr_tasks/Dockerfile
-    command: /bin/sh -c "/mcmsr_tasks/run_tasks.sh"
+      dockerfile: yamcsr_tasks/Dockerfile
+    command: /bin/sh -c "/yamcsr_tasks/run_tasks.sh"
     restart: unless-stopped
     volumes:
-      - ${LOGS_DIR_PATH}:/mcmsr_tasks/logs
+      - ${LOGS_DIR_PATH}:/yamcsr_tasks/logs
     env_file:
       - .env
 
@@ -20,15 +20,15 @@ services:
       args:
         - SERVER_FILES_URL=$SERVER_FILES_URL
         - SERVER_START_SCRIPT=$SERVER_START_SCRIPT
-    command: /bin/sh -c "/mcmsr/run_server.sh"
+    command: /bin/sh -c "/yamcsr/run_server.sh"
     restart: unless-stopped
     ports:
       - "25565:25565"
     volumes:
-      - ${WORLD_DIR_PATH}:/mcmsr_server/world
-      - mcmsr_server_data:/mcmsr_server
+      - ${WORLD_DIR_PATH}:/yamcsr_server/world
+      - server_data:/yamcsr_server
     env_file:
       - .env
 
 volumes:
-  mcmsr_server_data:
+  server_data:

@@ -1,4 +1,4 @@
-# MCMSR - Minecraft Modded Server Runner
+# YAMCSR - Yet Another Minecraft Server Runner
 
 ### Server commands
 1. Attach to server console

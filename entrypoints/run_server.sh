@@ -1,1 +1,1 @@
-/bin/sh -c "/mcmsr_server/${SERVER_START_SCRIPT}"
+/bin/sh -c "/yamcsr_server/${SERVER_START_SCRIPT}"

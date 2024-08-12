@@ -4,10 +4,12 @@ from tasks.config import Config
 
 
 @dataclass
-class RawCronRecord:
-    enabled_key: str
-    schedule_key: str
+class CronRecordDto:
     module: str
+    enabled: bool | None = None
+    schedule: str | None = None
+    enabled_key: str | None = None
+    schedule_key: str | None = None
 
 
 @dataclass
@@ -17,18 +19,19 @@ class CronRecord:
     module: str
 
 
-def load_source() -> list[RawCronRecord]:
+def load_source() -> list[CronRecordDto]:
     with open(os.path.join(Config.MODULE_PATH, "crontab_source.json"), "r") as file:
         data = json.loads(file.read())
 
-    return [RawCronRecord(**record) for record in data]
+    return [CronRecordDto(**record) for record in data]
 
-def parse_source(raw_data: list[RawCronRecord]) -> list[CronRecord]:
+def parse_source(raw_data: list[CronRecordDto]) -> list[CronRecord]:
     parsed_data = []
 
     for record in raw_data:
-        enabled = bool(int(os.getenv(record.enabled_key)))
-        schedule = os.getenv(record.schedule_key)
+        enabled = bool(int(os.getenv(record.enabled_key))) if record.enabled_key is not None else record.enabled
+        schedule = os.getenv(record.schedule_key) if record.schedule_key is not None else record.schedule
+
         module = record.module
 
         parsed_data.append(CronRecord(enabled, schedule, module))
@@ -49,7 +52,9 @@ def save_crontab(records: list[CronRecord]):
             entries.append(record_to_row(record))
 
     with open(filename, "w") as file:
-        file.writelines(entries)
+        for entry in entries:
+            file.write(f"{entry}\n")
+
         file.write("\n")
 
 

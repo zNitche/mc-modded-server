@@ -1,8 +1,8 @@
 FROM ubuntu:jammy
 
-RUN mkdir /mcmsr_tasks
-WORKDIR /mcmsr_tasks
-COPY mcmsr_tasks/ .
+RUN mkdir /yamcsr_tasks
+WORKDIR /yamcsr_tasks
+COPY yamcsr_tasks/ .
 COPY entrypoints/run_tasks.sh .
 
 RUN apt update

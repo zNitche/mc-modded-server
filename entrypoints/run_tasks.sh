@@ -1,3 +1,3 @@
-python3 /mcmsr_tasks/scripts/generate_crontab.py
+python3 /yamcsr_tasks/scripts/generate_crontab.py
 crontab jobs.txt
 cron -f

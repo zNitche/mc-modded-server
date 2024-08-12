@@ -7,16 +7,16 @@ ARG SERVER_START_SCRIPT
 RUN apt update
 RUN apt -y install zip wget nano
 
-RUN mkdir /mcmsr
-WORKDIR /mcmsr
+RUN mkdir /yamcsr
+WORKDIR /yamcsr
 
 COPY entrypoints/run_server.sh .
 
 RUN chmod +x run_server.sh
 
 # MC server setup
-RUN mkdir /mcmsr_server
-WORKDIR /mcmsr_server
+RUN mkdir /yamcsr_server
+WORKDIR /yamcsr_server
 
 RUN apt -y install openjdk-17-jre
 
