@@ -1,28 +1,24 @@
 import os
 from datetime import datetime
-from common.config import Config, LogType
+from yamcsr_scripts.config import Config, LogType
+from yamcsr_scripts.common import logging
 
 
 class TaskBase:
-    def __init__(self):
-        pass
-
-    def get_name(self) -> str:
+    @staticmethod
+    def get_name() -> str:
         raise NotImplemented
-    
+
     def log(self, message: str, type: LogType = LogType.INFO):
-        filename = f"{self.get_name()}_logs.log"
+        filename = f"{self.get_name()}.log"
         mess = f"[{type.value}] - [{datetime.now().isoformat()}] - {message}"
 
-        self.__log_message(mess, os.path.join(Config.LOGS_PATH, filename))
+        file_path = os.path.join(Config.LOGS_PATH, filename)
+        logging.log_to_file(file_path, mess)
 
     def __log_runner(self, message: str, type: LogType = LogType.INFO):
         mess = f"[{type.value}] - [{datetime.now().isoformat()}] - [{self.get_name()}] - {message}"
-        self.__log_message(mess, Config.TASKS_RUNNER_LOGS_PATH)
-
-    def __log_message(self, message: str, path: str):
-        with open(path, "a") as file:
-            file.write(f"{message}\n")
+        logging.log_to_file(Config.TASKS_RUNNER_LOGS_PATH, mess)
 
     def _task_handler(self):
         raise NotImplemented

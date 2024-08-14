@@ -1,17 +1,13 @@
-from common.task_base import TaskBase
+from yamcsr_scripts.tasks import TaskBase
 
 
 class ClearLogs(TaskBase):
     def __init__(self):
         super().__init__()
 
-    def get_name(self):
+    @staticmethod
+    def get_name():
         return "clear_logs"
 
     def _task_handler(self):
         self.log("starting logs wipe")
-
-
-if __name__ == "__main__":
-    task = ClearLogs()
-    task.run()

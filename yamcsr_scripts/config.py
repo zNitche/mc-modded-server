@@ -8,14 +8,13 @@ class LogType(Enum):
 
 
 class Config:
-    TASKS_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-    SCRIPTS_PATH = os.path.abspath(os.path.join(TASKS_PATH, os.pardir))
-    MODULE_PATH = os.path.abspath(os.path.join(SCRIPTS_PATH, os.pardir))
+    MODULE_PATH = os.path.abspath(os.path.dirname(__file__))
+    PROJECT_PATH = os.path.abspath(os.path.join(MODULE_PATH, os.pardir))
 
-    LOGS_PATH = os.path.join(MODULE_PATH, "logs")
+    LOGS_PATH = "/yamcsr_logs"
     TASKS_RUNNER_LOGS_PATH = os.path.join(LOGS_PATH, "tasks_runner.log")
 
-    FILES_PATH = os.path.join(MODULE_PATH, "files")
+    FILES_PATH = "/yamcsr_files"
     BACKUPS_PATH = os.path.join(FILES_PATH, "backups")
     
     WORLD_BACKUPS_PATH = os.path.join(BACKUPS_PATH, "world")
