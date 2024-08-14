@@ -11,7 +11,6 @@ RUN mkdir /yamcsr
 WORKDIR /yamcsr
 
 COPY entrypoints/run_server.sh .
-
 RUN chmod +x run_server.sh
 
 # MC server setup
