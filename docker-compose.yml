@@ -18,6 +18,8 @@ services:
       - .env
 
   tasks:
+    depends_on:
+      - $SERVER_NAME
     container_name: ${SERVER_NAME}_tasks
     build:
       context: .
@@ -25,11 +27,21 @@ services:
     command: /bin/sh -c "/yamcsr_tasks/run_tasks.sh"
     restart: unless-stopped
     volumes:
-      - ${TASKS_FILES_DIR_PATH}:/yamcsr_tasks/files
-      - ${LOGS_DIR_PATH}:/yamcsr_tasks/logs
+      - files:/yamcsr_files
+      - logs:/yamcsr_logs
       - server_data:/yamcsr_server_data
     env_file:
       - .env
 
 volumes:
   server_data:
+  logs:
+    driver_opts:
+      type: none
+      device: $LOGS_DIR_PATH
+      o: bind
+  files:
+    driver_opts:
+      type: none
+      device: $FILES_DIR_PATH
+      o: bind
