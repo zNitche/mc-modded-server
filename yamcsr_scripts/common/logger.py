@@ -25,9 +25,9 @@ class Logger:
         self.__logger.addHandler(console_logger)
 
         file_handler = TimedRotatingFileHandler(filename=self.log_filename,
-                                                when="M",
+                                                when="midnight",
                                                 encoding="utf-8",
-                                                backupCount=10)
+                                                backupCount=7)
         file_handler.setFormatter(formatter)
         file_handler.setLevel("INFO")
 
@@ -37,7 +37,7 @@ class Logger:
         formatter = logging.Formatter(
             "{asctime} - {levelname} - {message}",
             style="{",
-            datefmt="%Y-%m-%d %H:%M",
+            datefmt="%Y-%m-%d %H:%M:%S",
         )
 
         return formatter
