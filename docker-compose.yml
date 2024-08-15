@@ -11,7 +11,8 @@ services:
     command: /bin/sh -c "/yamcsr/run_server.sh"
     restart: unless-stopped
     ports:
-      - "25565:25565"
+      - "25565:25565" # server default port
+#      - "25575:25575" # rcon default port
     volumes:
       - server_data:/yamcsr_server
     env_file:

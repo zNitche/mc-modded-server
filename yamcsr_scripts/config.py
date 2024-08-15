@@ -2,6 +2,8 @@ import os
 
 
 class Config:
+    SERVER_SERVICE_NAME = os.getenv("SERVER_NAME")
+
     MODULE_PATH = os.path.abspath(os.path.dirname(__file__))
     PROJECT_PATH = os.path.abspath(os.path.join(MODULE_PATH, os.pardir))
 

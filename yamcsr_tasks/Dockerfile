@@ -11,7 +11,9 @@ COPY yamcsr_scripts/ yamcsr_scripts
 COPY entrypoints/run_tasks.sh .
 
 RUN apt update
-RUN apt -y install nano cron python3 python3-pip
+RUN apt -y install nano cron git python3 python3-pip
+RUN pip install --upgrade pip
+
 RUN pip3 install -r yamcsr_scripts/requirements.txt
 
 RUN chmod +x run_tasks.sh

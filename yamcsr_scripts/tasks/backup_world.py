@@ -34,6 +34,7 @@ class BackupWorld(TaskBase):
 
     def _task_handler(self):
         self.logger.info("starting world backup")
+        self.write_to_server_console("starting world backup")
 
         utils.check_dir_existance(Config.WORLD_BACKUPS_PATH)
 
