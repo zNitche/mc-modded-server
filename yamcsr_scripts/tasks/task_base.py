@@ -1,24 +1,20 @@
 import os
-from datetime import datetime
-from yamcsr_scripts.config import Config, LogType
-from yamcsr_scripts.common import logging
+from yamcsr_scripts.config import Config
+from yamcsr_scripts.common.logger import Logger
 
 
 class TaskBase:
+    def __init__(self):
+        self.__logger = Logger(Config.TASKS_RUNNER_LOGS_PATH, "tasks_runner.log",
+                               logger_name="task_runner_logger")
+
+        if self.get_name():
+            self.logger = Logger(os.path.join(Config.LOGS_PATH, self.get_name()), "log.log",
+                                 logger_name=f"{self.get_name()}_logger")
+
     @staticmethod
     def get_name() -> str:
-        raise NotImplemented
-
-    def log(self, message: str, type: LogType = LogType.INFO):
-        filename = f"{self.get_name()}.log"
-        mess = f"[{type.value}] - [{datetime.now().isoformat()}] - {message}"
-
-        file_path = os.path.join(Config.LOGS_PATH, filename)
-        logging.log_to_file(file_path, mess)
-
-    def __log_runner(self, message: str, type: LogType = LogType.INFO):
-        mess = f"[{type.value}] - [{datetime.now().isoformat()}] - [{self.get_name()}] - {message}"
-        logging.log_to_file(Config.TASKS_RUNNER_LOGS_PATH, mess)
+        return None
 
     def _task_handler(self):
         raise NotImplemented
@@ -26,5 +22,6 @@ class TaskBase:
     def run(self):
         try:
             self._task_handler()
-        except Exception as e:
-            self.__log_runner(str(e), LogType.ERROR)
+
+        except Exception:
+            self.__logger.exception(f"Error while running: {self.get_name()}")

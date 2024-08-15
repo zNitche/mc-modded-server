@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from yamcsr_scripts.tasks import TaskBase
-from yamcsr_scripts.config import Config, LogType
+from yamcsr_scripts.config import Config
 from yamcsr_scripts.common import utils
 
 
@@ -24,7 +24,7 @@ class BackupWorld(TaskBase):
             os.remove(file)
             removed_files.append(file)
 
-        self.log(f"removed {len(removed_files)} old backup/s")
+        self.logger.info(f"removed {len(removed_files)} old backup/s")
 
     def should_create_backup(self) -> bool:
         if os.path.exists(Config.WORLD_PATH) and len(os.listdir(Config.WORLD_PATH)) > 0:
@@ -33,7 +33,7 @@ class BackupWorld(TaskBase):
         return False
 
     def _task_handler(self):
-        self.log("starting world backup")
+        self.logger.info("starting world backup")
 
         utils.check_dir_existance(Config.WORLD_BACKUPS_PATH)
 
@@ -45,10 +45,10 @@ class BackupWorld(TaskBase):
 
             try:
                 utils.make_tarfile(Config.WORLD_PATH, output_path)
-            except Exception as e:
-                self.log(f"error while creating world backup: {str(e)}", LogType.ERROR)
+            except Exception:
+                self.logger.exception(f"error while creating world backup")
 
-            self.log(f"world backup completed, timestamp: {timestamp}")
+            self.logger.info(f"world backup completed, timestamp: {timestamp}")
 
         else:
-            self.log(f"skipping world backup world dir is empty")
+            self.logger.info(f"skipping world backup world dir is empty")

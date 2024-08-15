@@ -1,10 +1,4 @@
 import os
-from enum import Enum
-
-
-class LogType(Enum):
-    INFO = "INFO"
-    ERROR = "ERROR"
 
 
 class Config:
@@ -12,7 +6,7 @@ class Config:
     PROJECT_PATH = os.path.abspath(os.path.join(MODULE_PATH, os.pardir))
 
     LOGS_PATH = "/yamcsr_logs"
-    TASKS_RUNNER_LOGS_PATH = os.path.join(LOGS_PATH, "tasks_runner.log")
+    TASKS_RUNNER_LOGS_PATH = os.path.join(LOGS_PATH, "tasks_runner")
 
     FILES_PATH = "/yamcsr_files"
     BACKUPS_PATH = os.path.join(FILES_PATH, "backups")
