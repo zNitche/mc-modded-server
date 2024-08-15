@@ -3,10 +3,5 @@
         "enabled_key": "WORLD_BACKUP",
         "schedule_key": "WORLD_BACKUP_SCHEDULE",
         "module": "backup_world"
-    },
-    {
-        "enabled_key": "CLEAR_LOGS",
-        "schedule_key": "CLEAR_LOGS_SCHEDULE",
-        "module": "clear_logs"
     }
 ]
