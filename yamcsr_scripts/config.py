@@ -2,7 +2,11 @@ import os
 
 
 class Config:
-    SERVER_SERVICE_NAME = os.getenv("SERVER_NAME")
+    SERVER_SERVICE_NAME = "yamcsr_server"
+
+    RCON_ENABLED = int(os.getenv("RCON_ENABLED", 0))
+    RCON_PASSWORD = os.getenv("RCON_PASSWORD")
+    RCON_PORT = int(os.getenv("RCON_PORT", 25575))
 
     MODULE_PATH = os.path.abspath(os.path.dirname(__file__))
     PROJECT_PATH = os.path.abspath(os.path.join(MODULE_PATH, os.pardir))

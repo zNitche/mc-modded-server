@@ -17,13 +17,17 @@ class TaskBase:
         return None
 
     def write_to_server_console(self, message: str):
-        try:
-            with yarcon.Connection(Config.SERVER_SERVICE_NAME, 25575) as conn:
-                conn.command(f"say {message}")
+        if Config.RCON_ENABLED:
+            try:
+                with yarcon.Connection(Config.SERVER_SERVICE_NAME, Config.RCON_PORT) as conn:
+                    logged_in = conn.login(Config.RCON_PASSWORD)
 
-        except Exception:
-            if self.logger is not None:
-                self.logger.exception(f"Error while writing to server console")
+                    if logged_in:
+                        conn.command(f"say {message}")
+
+            except Exception:
+                if self.logger is not None:
+                    self.logger.exception(f"Error while writing to server console")
 
     def _task_handler(self):
         raise NotImplemented
