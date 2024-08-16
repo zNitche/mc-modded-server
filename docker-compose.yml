@@ -1,6 +1,6 @@
 services:
   server:
-    container_name: $SERVER_NAME
+    container_name: yamcsr_server
     stdin_open: true
     tty: true
     build:
@@ -20,8 +20,8 @@ services:
 
   tasks:
     depends_on:
-      - $SERVER_NAME
-    container_name: ${SERVER_NAME}_tasks
+      - yamcsr_server
+    container_name: yamcsr_tasks
     build:
       context: .
       dockerfile: yamcsr_tasks/Dockerfile
