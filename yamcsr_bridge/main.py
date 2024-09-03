@@ -9,8 +9,7 @@ def register_tasks(server: Server):
 
 
 def create_server() -> Server:
-    server = Server(address="0.0.0.0",
-                    port=8989,
+    server = Server(port=8989,
                     logs_path="/yamcsr_logs/bridge",
                     auth_tokens_path="auth_data/tokens.json",
                     ssl_key_file="auth_data/key.pem",
