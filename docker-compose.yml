@@ -12,7 +12,6 @@ services:
     restart: unless-stopped
     ports:
       - "25565:25565" # server default port
-#      - "25575:25575" # rcon default port
     volumes:
       - server_data:/yamcsr_server
     env_file:
@@ -27,6 +26,24 @@ services:
       dockerfile: yamcsr_tasks/Dockerfile
     command: /bin/sh -c "/yamcsr_tasks/run_tasks.sh"
     restart: unless-stopped
+    volumes:
+      - files:/yamcsr_files
+      - logs:/yamcsr_logs
+      - server_data:/yamcsr_server_data
+    env_file:
+      - .env
+
+  bridge:
+    depends_on:
+      - yamcsr_server
+    container_name: yamcsr_bridge
+    build:
+      context: .
+      dockerfile: yamcsr_bridge/Dockerfile
+    command: /bin/sh -c "/yamcsr_bridge/run_bridge.sh"
+    restart: unless-stopped
+    ports:
+      -  8989:${BRIDGE_PORT}
     volumes:
       - files:/yamcsr_files
       - logs:/yamcsr_logs

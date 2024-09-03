@@ -1,0 +1,26 @@
+from iscep import Server
+from tasks.backup_world import BackupWorldTask
+from tasks.op_player import OpPlayer
+
+
+def register_tasks(server: Server):
+    server.register_task(BackupWorldTask())
+    server.register_task(OpPlayer())
+
+
+def create_server() -> Server:
+    server = Server(address="0.0.0.0",
+                    port=8989,
+                    logs_path="/yamcsr_logs/bridge",
+                    auth_tokens_path="auth_data/tokens.json",
+                    ssl_key_file="auth_data/key.pem",
+                    ssl_cert_file="auth_data/cert.pem")
+
+    return server
+
+
+if __name__ == '__main__':
+    server = create_server()
+    register_tasks(server)
+
+    server.run()
