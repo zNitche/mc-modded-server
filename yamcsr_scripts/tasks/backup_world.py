@@ -33,8 +33,7 @@ class BackupWorld(TaskBase):
         return False
 
     def _task_handler(self):
-        self.logger.info("starting world backup")
-        self.write_to_server_console("starting world backup")
+        self.write_to_console("starting world backup", propagate_to_server=True)
 
         utils.check_dir_existance(Config.WORLD_BACKUPS_PATH)
 
@@ -49,7 +48,7 @@ class BackupWorld(TaskBase):
             except Exception:
                 self.logger.exception(f"error while creating world backup")
 
-            self.logger.info(f"world backup completed, timestamp: {timestamp}")
+            self.write_to_console(f"world backup completed, timestamp: {timestamp}",  propagate_to_server=True)
 
         else:
             self.logger.info(f"skipping world backup world dir is empty")

@@ -1,7 +1,8 @@
 import os
+import typing
+from yamcsr_scripts.common import rcon
 from yamcsr_scripts.config import Config
 from yamcsr_scripts.common.logger import Logger
-import yarcon
 
 
 class TaskBase:
@@ -17,20 +18,26 @@ class TaskBase:
         return None
 
     def write_to_server_console(self, message: str):
-        if Config.RCON_ENABLED:
-            try:
-                with yarcon.Connection(Config.SERVER_SERVICE_NAME, Config.RCON_PORT) as conn:
-                    logged_in = conn.login(Config.RCON_PASSWORD)
+        try:
+            rcon.send_cmd(f"say {message}")
 
-                    if logged_in:
-                        conn.command(f"say {message}")
+        except Exception:
+            if self.logger is not None:
+                self.logger.exception(f"Error while writing to server console")
 
-            except Exception:
-                if self.logger is not None:
-                    self.logger.exception(f"Error while writing to server console")
+    def write_to_console(self,
+                         message: str,
+                         logger: typing.Callable[[str], None] = None,
+                         propagate_to_server: bool = False):
+
+        logger = logger if logger is not None else self.logger.info
+        logger(message)
+
+        if propagate_to_server:
+            self.write_to_server_console(message)
 
     def _task_handler(self):
-        raise NotImplemented
+        raise NotImplemented()
 
     def run(self):
         self._task_handler()
