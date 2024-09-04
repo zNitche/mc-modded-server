@@ -53,6 +53,10 @@ services:
 
 volumes:
   server_data:
+    driver_opts:
+      type: none
+      device: $SERVER_DATA_DIR_PATH
+      o: bind
   logs:
     driver_opts:
       type: none
