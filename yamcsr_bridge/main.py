@@ -1,3 +1,4 @@
+import os
 from iscep import Server
 from tasks.backup_world import BackupWorldTask
 from tasks.op_player import OpPlayer
@@ -19,7 +20,10 @@ def create_server() -> Server:
 
 
 if __name__ == '__main__':
-    server = create_server()
-    register_tasks(server)
+    module_enabled = int(os.getenv("BRIDGE_MODULE_ENABLED", 0))
 
-    server.run()
+    if module_enabled:
+        server = create_server()
+        register_tasks(server)
+
+        server.run()
