@@ -19,7 +19,7 @@ services:
 
   tasks:
     depends_on:
-      - yamcsr_server
+      - server
     container_name: yamcsr_tasks
     build:
       context: .
@@ -35,7 +35,7 @@ services:
 
   bridge:
     depends_on:
-      - yamcsr_server
+      - server
     container_name: yamcsr_bridge
     build:
       context: .
